@@ -1,0 +1,17 @@
+name: Nigthly
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          ./ticket.sh
+      - run: |
+          ./ikkyu_disney.sh 20201127
+      - run: |
+          ./ikkyu_disney.sh 20201128
