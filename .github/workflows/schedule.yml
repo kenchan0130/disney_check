@@ -15,6 +15,7 @@ jobs:
       - run: |
           ./ticket.sh
       - run: |
-          ./ikkyu_disney.sh 20201127
+          ./restaurant.sh "20201129"
       - run: |
-          ./ikkyu_disney.sh 20201128
+          ./restaurant.sh "20201130"
+      # "(れすとらん北齋|ポリネシアンテラス・レストラン|レストラン櫻|ホライズンベイ・レストラン)"
