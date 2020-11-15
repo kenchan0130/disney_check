@@ -29,4 +29,4 @@ if [[ ! "${result}" ]];then
     exit 0
 fi
 
-curl -X POST --data-urlencode "payload={\"channel\": \"#notification\", \"username\": \"disney checker\", \"text\": \"レストランの空きがみつかったよ\n${result}\n${url}\", \"icon_emoji\": \":robot_face:\"}" "${SLACK_WEBHOOK_URL}"
+curl -X POST --data-urlencode "payload={\"channel\": \"#notification\", \"username\": \"disney checker\", \"text\": \"*レストランの空きがみつかったよ*\n${result}\n${url}\", \"icon_emoji\": \":robot_face:\"}" "${SLACK_WEBHOOK_URL}"
