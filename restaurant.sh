@@ -29,6 +29,4 @@ if [[ ! "${result}" ]];then
     exit 0
 fi
 
-echo $result
-
 curl -X POST --data-urlencode "payload={\"channel\": \"#notification\", \"username\": \"disney checker\", \"text\": \"レストランの空きがみつかったよ\n${result}\n${url}\", \"icon_emoji\": \":robot_face:\"}" "${SLACK_WEBHOOK_URL}"
