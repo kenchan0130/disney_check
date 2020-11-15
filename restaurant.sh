@@ -8,7 +8,7 @@ if [[ ! "${ignore}" ]];then
 fi
 
 url="https://reserve.tokyodisneyresort.jp/sp/restaurant/list/?useDate=${date}&mealDivInform=&adultNum=2&childNum=0&childAgeInform=&restaurantTypeInform=&restaurantNameCd=&wheelchairCount=0&stretcherCount=0&showWay=&reservationStatus=1&beforeUrl=https%3A%2F%2Freserve.tokyodisneyresort.jp%2Fsp%2Frestaurant%2Flist%2F%3FuseDate%3D20201129%26mealDivInform%3D%26adultNum%3D2%26childNum%3D0%26childAgeInform%3D%26restaurantTypeInform%3D%26restaurantNameCd%3D%26wheelchairCount%3D0%26stretcherCount%3D0%26showWay%3D%26reservationStatus%3D1%26wayBack%3D&wayBack="
-response=$(curl -sfL "${url}" \
+response=$(curl -sfL --false-start "${url}" \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
   -H 'Upgrade-Insecure-Requests: 1' \
