@@ -24,10 +24,23 @@ response=$(curl -sLf 'https://www.tokyodisneyresort.jp/ticket/sales_status.html'
 result=""
 for d in ${dateList[@]};do
   echo "Check ${d}..."
-  v=$( echo "${response}" | perl -ne '/ticketDayDetails = (.+?);/&&print"$1"' | jq "[.[] | select(.date == \"${d}\") | select((.tds[0].ticket_class != \"is-close\" and .tds[0].ticket_class != \"is-none\") or (.tdl[0].ticket_class != \"is-close\" and .tds[0].ticket_class != \"is-none\"))] | unique | .[0]" )
+  isActiveTDS=$( echo "${response}" | perl -ne '/ticketDayDetails = (.+?);/&&print"$1"' | jq ".[] | select(.date == \"${d}\") | .tds" )
+  isActiveTDL=$( echo "${response}" | perl -ne '/ticketDayDetails = (.+?);/&&print"$1"' | jq ".[] | select(.date == \"${d}\") | .tdl" )
+  if [[ "${isActiveTDS}" == "null" ]] && [[ "${isActiveTDL}" == "null" ]];then
+    echo "Not active date, skip ${d}..."
+    continue
+  fi
 
-  if [[ "${v}" == "null" ]];then
-    echo "Not found, skip ${d}..."
+  if [[ "${isActiveTDS}" != "null" ]];then
+    v=$( echo "${response}" | perl -ne '/ticketDayDetails = (.+?);/&&print"$1"' | jq ".[] | select(.date == \"${d}\") | select(.tds[0].ticket_class != \"is-close\" and .tds[0].ticket_class != \"is-none\")" )
+  fi
+
+  if [[ "${isActiveTDL}" != "null" ]];then
+    v=$( echo "${response}" | perl -ne '/ticketDayDetails = (.+?);/&&print"$1"' | jq ".[] | select(.date == \"${d}\") | select(.tdl[0].ticket_class != \"is-close\" and .tdl[0].ticket_class != \"is-none\")" )
+  fi
+
+  if [[ ! "${v}" ]];then
+    echo "Not found ticket, skip ${d}..."
     continue
   fi
 
