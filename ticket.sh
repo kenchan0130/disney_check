@@ -54,7 +54,7 @@ for d in ${dateList[@]};do
 done
 
 if [[ "${result}" ]];then
-  d=$( echo "[${result}]" | jq -r '.[] | .date' | sort )
+  d=$( echo "[${result}]" | jq -r '.[] | .date' | sort | xargs -I{} echo "<https://reserve.tokyodisneyresort.jp/ticket/search/?outside=1&route=1&useDays=1&useDateFrom={}&parkTicketSalesForm=1|{}>" )
 
   curl -X POST --data-urlencode "payload={\"channel\": \"#notification\", \"username\": \"disney checker\", \"text\": \"${d}\nチケットが見つかったよ https://www.tokyodisneyresort.jp/ticket/sales_status.html\", \"icon_emoji\": \":bot:\"}" "${SLACK_WEBHOOK_URL}"
 fi
