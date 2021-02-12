@@ -1,7 +1,7 @@
 name: Nigthly
 on:
-  schedule:
-    - cron: '* * * * *'
+#   schedule:
+#     - cron: '* * * * *'
   workflow_dispatch:
 
 env:
